@@ -6,6 +6,11 @@ import second from "../assets/22.png";
 import fourth from "../assets/19.png";
 import fifth from "../assets/maths.png";
 
+/* =========================
+   ADDED: Framer Motion
+========================= */
+import { motion } from "framer-motion";
+
 const events = [
   {
     type: "CONFERENCE",
@@ -87,7 +92,6 @@ const upcomingEvents = [
     title: "International Conference on Number Theory and its Applications",
     dates: "15 – 18 June 2025",
     location: "Bengaluru, India",
-   
   },
   {
     date: "22",
@@ -96,7 +100,6 @@ const upcomingEvents = [
     title: "MRI Colloquium Talk by Prof. Manjul Bhargava",
     dates: "22 June 2025, 5:00 PM IST",
     location: "Online (Zoom)",
-  
   },
   {
     date: "05",
@@ -105,7 +108,6 @@ const upcomingEvents = [
     title: "Workshop on Algebraic Topology and its Applications",
     dates: "5 – 9 July 2025",
     location: "TIFR, Mumbai, India",
-  
   },
   {
     date: "19",
@@ -114,7 +116,6 @@ const upcomingEvents = [
     title: "Lecture Series on Mathematical Physics",
     dates: "19 July – 23 Aug 2025",
     location: "Online (Zoom)",
-   
   },
   {
     date: "10",
@@ -123,9 +124,33 @@ const upcomingEvents = [
     title: "Research Methodology for Mathematics",
     dates: "10 – 14 Aug 2025",
     location: "Bengaluru, India",
-    
   },
 ];
+
+/* =========================
+   ADDED: Animation Variants
+========================= */
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 24 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.6,
+      ease: "easeOut",
+    },
+  },
+};
+
+const staggerContainer = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.08,
+    },
+  },
+};
 
 export default function Events() {
   return (
@@ -133,10 +158,14 @@ export default function Events() {
       {/* Hero */}
       <section className="relative overflow-hidden bg-white">
         {/* BACKGROUND IMAGE */}
-        <img
+        <motion.img
+          /* ADDED: subtle fade animation */
+          initial={{ scale: 1.03, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 1.2, ease: "easeOut" }}
           src={bg4}
           alt="background"
-          className="absolute  w-full h-[400px] "
+          className="absolute w-full h-[400px]"
         />
 
         {/* OPTIONAL OVERLAY (for readability) */}
@@ -148,7 +177,13 @@ export default function Events() {
         </div>
 
         {/* CONTENT */}
-        <div className="relative z-20 h-[400px] flex items-center lg:px-16 px-6">
+        <motion.div
+          /* ADDED: soft entrance animation */
+          variants={fadeUp}
+          initial="hidden"
+          animate="visible"
+          className="relative z-20 h-[400px] flex items-center lg:px-16 px-6"
+        >
           <div className="max-w-[600px]">
             <h1 className="font-serif text-[50px] leading-tight text-[#1A1A1A] mb-3">
               Events
@@ -167,26 +202,43 @@ export default function Events() {
               inspiring discussions and collaborations.
             </p>
           </div>
-        </div>
+        </motion.div>
       </section>
 
       {/* Breadcrumb */}
-      <div className="bg-white ">
+      <motion.div
+        variants={fadeUp}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        className="bg-white"
+      >
         <div className="max-w-[1200px] mx-auto px-6 py-6">
           <Breadcrumb items={[{ label: "Events" }]} />
         </div>
-      </div>
+      </motion.div>
 
       {/* Search */}
       <section className="">
         <div className="max-w-[1200px] mx-auto px-6">
           {/* BOX CONTAINER */}
-          <div className="bg-white shadow-md rounded-lg p-4">
+          <motion.div
+            /* ADDED: entrance + hover shadow */
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            whileHover={{
+              y: -2,
+              boxShadow: "0 12px 35px rgba(0,0,0,0.08)",
+            }}
+            className="bg-white shadow-md rounded-lg p-4 transition-all duration-300"
+          >
             <div className="flex flex-wrap items-center gap-4">
               {/* SEARCH INPUT */}
               <div className="flex-1 min-w-[250px] relative">
                 <svg
-                  className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400"
+                  className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 transition-colors duration-300"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -202,70 +254,89 @@ export default function Events() {
                 <input
                   type="text"
                   placeholder="Search events by title, speaker or keywords..."
-                  className="w-full pl-10 pr-4 h-[42px] border border-[#E5E5E5] text-[13px] focus:outline-none focus:border-[#C9960C] rounded"
+                  className="w-full pl-10 pr-4 h-[42px] border border-[#E5E5E5] text-[13px] focus:outline-none focus:border-[#C9960C] rounded transition-all duration-300 focus:shadow-[0_0_0_4px_rgba(201,150,12,0.08)]"
                 />
               </div>
 
               {/* SELECTS */}
-              <select className="h-[42px] border border-[#E5E5E5] px-3 text-[13px] text-gray-900 focus:outline-none bg-white rounded min-w-[160px]">
+              <select className="h-[42px] border border-[#E5E5E5] px-3 text-[13px] text-gray-900 focus:outline-none bg-white rounded min-w-[160px] transition-all duration-300 hover:border-[#C9960C]">
                 <option>All Event Types</option>
                 <option>Conference</option>
                 <option>Workshop</option>
                 <option>Seminar</option>
               </select>
 
-              <select className="h-[42px] border border-[#E5E5E5] px-3 text-[13px] text-gray-900 focus:outline-none bg-white rounded min-w-[160px]">
+              <select className="h-[42px] border border-[#E5E5E5] px-3 text-[13px] text-gray-900 focus:outline-none bg-white rounded min-w-[160px] transition-all duration-300 hover:border-[#C9960C]">
                 <option>All Categories</option>
                 <option>Pure Mathematics</option>
                 <option>Applied Mathematics</option>
               </select>
 
-              <select className="h-[42px] border border-[#E5E5E5] px-3 text-[13px] text-gray-900 focus:outline-none bg-white rounded min-w-[160px]">
+              <select className="h-[42px] border border-[#E5E5E5] px-3 text-[13px] text-gray-900 focus:outline-none bg-white rounded min-w-[160px] transition-all duration-300 hover:border-[#C9960C]">
                 <option>Upcoming & Past</option>
                 <option>Upcoming</option>
                 <option>Past</option>
               </select>
 
               {/* BUTTON */}
-              <button className="h-[42px] px-6 bg-[#C9960C] text-white text-[13px] font-semibold rounded hover:bg-[#b8860b] transition">
+              <button className="h-[42px] px-6 bg-[#C9960C] text-white text-[13px] font-semibold rounded hover:bg-[#b8860b] hover:scale-[1.03] active:scale-[0.98] transition-all duration-300 shadow-sm hover:shadow-lg">
                 SEARCH
               </button>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* Events List + Sidebar */}
-      <section className="py-10 ">
+      <section className="py-10">
         <div className="max-w-[1200px] mx-auto px-6">
           <div className="flex flex-col lg:flex-row gap-6">
             {/* LEFT SIDE */}
             <div className="flex-1">
-              <h2 className="font-serif text-[22px] text-[#1A1A1A] mb-1">
+              <motion.h2
+                variants={fadeUp}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                className="font-serif text-[22px] text-[#1A1A1A] mb-1"
+              >
                 All Events
-              </h2>
+              </motion.h2>
+
               <div className="w-8 h-[2px] bg-[#C9960C] mb-5"></div>
 
-              <div className="space-y-4">
+              <motion.div
+                variants={staggerContainer}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                className="space-y-4"
+              >
                 {events.map((ev, i) => (
-                  <div
+                  <motion.div
                     key={i}
-                    className="bg-white shadow-md rounded-lg  flex overflow-hidden"
+                    variants={fadeUp}
+                    whileHover={{
+                      y: -4,
+                      scale: 1.005,
+                      boxShadow: "0 14px 40px rgba(0,0,0,0.08)",
+                    }}
+                    transition={{ duration: 0.3 }}
+                    className="bg-white shadow-md rounded-lg flex overflow-hidden transition-all duration-300"
                   >
                     {/* IMAGE */}
-                    <div className="w-[200px] h-[155px] shrink-0">
+                    <div className="w-[200px] h-[155px] shrink-0 overflow-hidden">
                       <img
                         src={ev.img}
                         alt={ev.title}
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
                       />
                     </div>
 
                     {/* RIGHT CONTENT */}
                     <div className="flex flex-1 p-4 gap-4 relative">
-                     
                       {/* DATE BOX */}
-                      <div className="w-[40px] h-[70px] border border-[#E5E5E5] rounded text-center shrink-0 overflow-hidden">
+                      <div className="w-[40px] h-[70px] border border-[#E5E5E5] rounded text-center shrink-0 overflow-hidden transition-all duration-300 hover:border-[#C9960C]">
                         <div className="text-[18px] font-bold text-[#1A1A1A] py-1">
                           {ev.date}
                         </div>
@@ -280,13 +351,13 @@ export default function Events() {
                       {/* TEXT CONTENT */}
                       <div className="flex-1 pr-[120px]">
                         <span
-                          className="text-[10px] font-bold tracking-wide"
+                          className="text-[10px] font-bold tracking-wide transition-opacity duration-300"
                           style={{ color: ev.typeColor }}
                         >
                           {ev.type}
                         </span>
 
-                        <h3 className="text-[14px] font-semibold text-[#1A1A1A] mt-1 mb-1 leading-snug">
+                        <h3 className="text-[14px] font-semibold text-[#1A1A1A] mt-1 mb-1 leading-snug transition-colors duration-300 group-hover:text-[#C9960C]">
                           {ev.title}
                         </h3>
 
@@ -302,56 +373,73 @@ export default function Events() {
                         </p>
                       </div>
 
-                      {/* BUTTON (BOTTOM RIGHT FIXED) */}
+                      {/* BUTTON */}
                       <div className="absolute right-4 bottom-4">
-                        <button className="text-[10px] font-bold px-3 py-2 border border-[#C9960C] text-[#C9960C] hover:bg-[#C9960C] hover:text-white transition rounded">
+                        <button className="text-[10px] font-bold px-3 py-2 border border-[#C9960C] text-[#C9960C] hover:bg-[#C9960C] hover:text-white hover:scale-105 active:scale-95 transition-all duration-300 rounded shadow-sm hover:shadow-md">
                           VIEW DETAILS
                         </button>
                       </div>
                     </div>
-                  </div>
+                  </motion.div>
                 ))}
-              </div>
+              </motion.div>
 
               {/* PAGINATION */}
-              <div className="flex justify-center gap-2 mt-6">
-                <button className="w-8 h-8 border border-[#E5E5E5] text-[12px] text-gray-500">
+              <motion.div
+                variants={fadeUp}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                className="flex justify-center gap-2 mt-6"
+              >
+                <button className="w-8 h-8 border border-[#E5E5E5] text-[12px] text-gray-500 hover:border-[#C9960C] hover:text-[#C9960C] transition-all duration-300 hover:scale-105">
                   ‹
                 </button>
-                <button className="w-8 h-8 bg-[#C9960C] text-white text-[12px] font-bold">
+
+                <button className="w-8 h-8 bg-[#C9960C] text-white text-[12px] font-bold hover:scale-105 transition-all duration-300">
                   1
                 </button>
-                <button className="w-8 h-8 border border-[#E5E5E5] text-[12px]">
+
+                <button className="w-8 h-8 border border-[#E5E5E5] text-[12px] hover:border-[#C9960C] hover:text-[#C9960C] transition-all duration-300 hover:scale-105">
                   2
                 </button>
-                <button className="w-8 h-8 border border-[#E5E5E5] text-[12px]">
+
+                <button className="w-8 h-8 border border-[#E5E5E5] text-[12px] hover:border-[#C9960C] hover:text-[#C9960C] transition-all duration-300 hover:scale-105">
                   3
                 </button>
-                <button className="w-8 h-8 border border-[#E5E5E5] text-[12px]">
+
+                <button className="w-8 h-8 border border-[#E5E5E5] text-[12px] hover:border-[#C9960C] hover:text-[#C9960C] transition-all duration-300 hover:scale-105">
                   ›
                 </button>
-              </div>
+              </motion.div>
             </div>
 
             {/* RIGHT SIDEBAR */}
-            <div className="w-[300px] shrink-0 space-y-5">
+            <motion.div
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              className="w-[300px] shrink-0 space-y-5"
+            >
               {/* UPCOMING */}
-              <div className="bg-white border border-[#EAEAEA] rounded-md p-4">
+              <div className="bg-white border border-[#EAEAEA] rounded-md p-4 transition-all duration-300 hover:shadow-lg">
                 <h3 className="font-serif text-[16px] text-[#1A1A1A] mb-1">
                   Upcoming Events
                 </h3>
+
                 <div className="w-8 h-[2px] bg-[#C9960C] mb-6"></div>
 
                 <div className="space-y-4">
                   {upcomingEvents.map((ev, i) => (
-                    <div
+                    <motion.div
                       key={i}
+                      whileHover={{ x: 4 }}
+                      transition={{ duration: 0.25 }}
                       className="flex gap-3 pb-3 last:border-0 last:pb-0"
                     >
-
                       {/* DATE BOX */}
-                      <div className="w-[42px] h-[70px] border border-[#E5E5E5] rounded text-center shrink-0 overflow-hidden">
-                        
+                      <div className="w-[42px] h-[70px] border border-[#E5E5E5] rounded text-center shrink-0 overflow-hidden transition-all duration-300 hover:border-[#C9960C]">
                         <div className="text-[14px] font-bold text-[#1A1A1A] py-[4px]">
                           {ev.date}
                         </div>
@@ -367,7 +455,7 @@ export default function Events() {
 
                       {/* TEXT */}
                       <div className="flex-1">
-                        <p className="text-[12px] font-semibold text-[#1A1A1A] leading-tight mb-1">
+                        <p className="text-[12px] font-semibold text-[#1A1A1A] leading-tight mb-1 transition-colors duration-300 hover:text-[#C9960C]">
                           {ev.title}
                         </p>
 
@@ -413,145 +501,202 @@ export default function Events() {
                           <span>{ev.location}</span>
                         </div>
                       </div>
-                    </div>
+                    </motion.div>
                   ))}
                 </div>
 
-                <button className="mt-8 w-full text-[11px] border border-[#C9960C] text-[#C9960C] py-2 hover:bg-[#C9960C] hover:text-white transition rounded">
+                <button className="mt-8 w-full text-[11px] border border-[#C9960C] text-[#C9960C] py-2 hover:bg-[#C9960C] hover:text-white hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 rounded">
                   VIEW ALL EVENTS →
                 </button>
               </div>
+
               {/* NEWSLETTER */}
-             <div className="bg-[#F6F2E8] border border-[#EAEAEA] rounded-md p-4 text-center">
+              <motion.div
+                whileHover={{
+                  y: -3,
+                  boxShadow: "0 12px 30px rgba(0,0,0,0.08)",
+                }}
+                transition={{ duration: 0.3 }}
+                className="bg-[#F6F2E8] border border-[#EAEAEA] rounded-md p-4 text-center transition-all duration-300"
+              >
+                {/* ICON */}
+                <div className="w-10 h-10 mx-auto rounded-full bg-white border border-[#C9960C] flex items-center justify-center transition-transform duration-300 hover:scale-110">
+                  <svg
+                    className="w-6 h-6 text-[#C9960C]"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={1.5}
+                      d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                    />
+                  </svg>
+                </div>
 
-  {/* ICON */}
-  <div className="w-10 h-10 mx-auto rounded-full bg-white border border-[#C9960C] flex items-center justify-center">
-    <svg
-      className="w-6 h-6 text-[#C9960C]"
-      fill="none"
-      stroke="currentColor"
-      viewBox="0 0 24 24"
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={1.5}
-        d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-      />
-    </svg>
-  </div>
+                {/* HEADING */}
+                <h3 className="font-serif text-[15px] text-[#1A1A1A] mt-3 font-semibold mb-1">
+                  Never Miss an Update
+                </h3>
 
-  {/* HEADING */}
-  <h3 className="font-serif text-[15px] text-[#1A1A1A] mt-3 font-semibold mb-1">
-    Never Miss an Update
-  </h3>
+                {/* TEXT */}
+                <p className="text-[11px] text-gray-900 leading-relaxed mb-3">
+                  Subscribe to our newsletter and <br /> get the latest updates
+                  on events, <br /> seminars and programs.
+                </p>
 
-  {/* TEXT */}
-  <p className="text-[11px] text-gray-900 leading-relaxed mb-3">
-    Subscribe to our newsletter and <br /> get the latest updates
-    on events, <br /> seminars and programs.
-  </p>
+                {/* INPUT */}
+                <input
+                  type="email"
+                  placeholder="Enter your email address"
+                  className="w-full border border-[#E5E5E5] px-3 h-[36px] text-[11px] mb-3 focus:outline-none focus:border-[#C9960C] rounded text-left transition-all duration-300 focus:shadow-[0_0_0_4px_rgba(201,150,12,0.08)]"
+                />
 
-  {/* INPUT */}
-  <input
-    type="email"
-    placeholder="Enter your email address"
-    className="w-full border border-[#E5E5E5] px-3 h-[36px] text-[11px] mb-3 focus:outline-none focus:border-[#C9960C] rounded text-left"
-  />
-
-  {/* BUTTON */}
-  <button className="w-full h-[36px] bg-[#C9960C] text-white text-[11px] font-bold tracking-wide rounded hover:bg-[#b8860b] transition">
-    SUBSCRIBE
-  </button>
-
-</div>
-            </div>
+                {/* BUTTON */}
+                <button className="w-full h-[36px] bg-[#C9960C] text-white text-[11px] font-bold tracking-wide rounded hover:bg-[#b8860b] hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 shadow-sm hover:shadow-lg">
+                  SUBSCRIBE
+                </button>
+              </motion.div>
+            </motion.div>
           </div>
         </div>
       </section>
 
       {/* Bottom Features */}
-   <section className="py-6  ">
-  <div className="max-w-[1200px] mx-auto px-6">
+      <section className="py-6">
+        <div className="max-w-[1200px] mx-auto px-6">
+          {/* SINGLE BOX */}
+          <motion.div
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            whileHover={{
+              y: -2,
+              boxShadow: "0 12px 35px rgba(0,0,0,0.08)",
+            }}
+            className="bg-white border border-[#EAEAEA] rounded-md shadow-sm px-6 py-5 transition-all duration-300"
+          >
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {[
+                {
+                  title: "Diverse Events",
+                  desc: "Conferences, workshops, seminars, colloquia and more.",
+                  icon: (
+                    <svg
+                      className="w-5 h-5"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeWidth={1.5}
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M8 7V3m8 4V3M4 11h16M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                      />
+                    </svg>
+                  ),
+                },
+                {
+                  title: "Expert Speakers",
+                  desc: "Learn from leading mathematicians and researchers.",
+                  icon: (
+                    <svg
+                      className="w-5 h-5"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeWidth={1.5}
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M12 14l9-5-9-5-9 5 9 5z"
+                      />
+                      <path
+                        strokeWidth={1.5}
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M12 14v7m0 0l-3-3m3 3l3-3"
+                      />
+                    </svg>
+                  ),
+                },
+                {
+                  title: "Global Participation",
+                  desc: "Join in-person or online from anywhere in the world.",
+                  icon: (
+                    <svg
+                      className="w-5 h-5"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeWidth={1.5}
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M12 2a10 10 0 100 20 10 10 0 000-20z"
+                      />
+                      <path
+                        strokeWidth={1.5}
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M2 12h20M12 2c2.5 3 2.5 17 0 20M12 2c-2.5 3-2.5 17 0 20"
+                      />
+                    </svg>
+                  ),
+                },
+                {
+                  title: "Networking Opportunities",
+                  desc: "Connect, collaborate and grow together.",
+                  icon: (
+                    <svg
+                      className="w-5 h-5"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeWidth={1.5}
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M17 20h5V4H2v16h5m10 0a5 5 0 01-10 0m10 0a5 5 0 00-10 0"
+                      />
+                    </svg>
+                  ),
+                },
+              ].map((f, i) => (
+                <motion.div
+                  key={i}
+                  whileHover={{ y: -3 }}
+                  transition={{ duration: 0.25 }}
+                  className="flex items-start gap-3"
+                >
+                  {/* ICON */}
+                  <div className="w-12 h-16 flex items-center justify-center text-[#C9960C] transition-all duration-300 hover:scale-110">
+                    {f.icon}
+                  </div>
 
-    {/* SINGLE BOX */}
-    <div className="bg-white border border-[#EAEAEA] rounded-md shadow-sm px-6 py-5">
+                  {/* TEXT */}
+                  <div>
+                    <h3 className="font-serif text-[14px] text-[#1A1A1A] font-semibold mb-1 leading-tight transition-colors duration-300 hover:text-[#C9960C]">
+                      {f.title}
+                    </h3>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-
-        {[
-          {
-            title: "Diverse Events",
-            desc: "Conferences, workshops, seminars, colloquia and more.",
-            icon: (
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round"
-                  d="M8 7V3m8 4V3M4 11h16M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-              </svg>
-            ),
-          },
-          {
-            title: "Expert Speakers",
-            desc: "Learn from leading mathematicians and researchers.",
-            icon: (
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round"
-                  d="M12 14l9-5-9-5-9 5 9 5z" />
-                <path strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round"
-                  d="M12 14v7m0 0l-3-3m3 3l3-3" />
-              </svg>
-            ),
-          },
-          {
-            title: "Global Participation",
-            desc: "Join in-person or online from anywhere in the world.",
-            icon: (
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round"
-                  d="M12 2a10 10 0 100 20 10 10 0 000-20z" />
-                <path strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round"
-                  d="M2 12h20M12 2c2.5 3 2.5 17 0 20M12 2c-2.5 3-2.5 17 0 20" />
-              </svg>
-            ),
-          },
-          {
-            title: "Networking Opportunities",
-            desc: "Connect, collaborate and grow together.",
-            icon: (
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round"
-                  d="M17 20h5V4H2v16h5m10 0a5 5 0 01-10 0m10 0a5 5 0 00-10 0" />
-              </svg>
-            ),
-          },
-        ].map((f, i) => (
-          
-          <div key={i} className="flex items-start gap-3">
-
-            {/* ICON */}
-            <div className="w-12 h-16  flex items-center justify-center text-[#C9960C] ">
-              {f.icon}
+                    <p className="text-[12px] text-gray-700 leading-snug">
+                      {f.desc}
+                    </p>
+                  </div>
+                </motion.div>
+              ))}
             </div>
-
-            {/* TEXT */}
-            <div>
-              <h3 className="font-serif text-[14px] text-[#1A1A1A] font-semibold mb-1 leading-tight">
-                {f.title}
-              </h3>
-              <p className="text-[12px] text-gray-700 leading-snug">
-                {f.desc}
-              </p>
-            </div>
-
-          </div>
-
-        ))}
-
-      </div>
-    </div>
-
-  </div>
-</section>
+          </motion.div>
+        </div>
+      </section>
     </div>
   );
 }
