@@ -262,33 +262,35 @@ export default function Footer() {
               </motion.a>
 
               {/* LinkedIn */}
-              <motion.a
-                href="#"
-                whileHover={{
-                  scale: 1.12,
-                  y: -2,
-                }}
-                whileTap={{ scale: 0.95 }}
-                transition={{ duration: 0.25 }}
-                className="
-                  w-9 h-9 rounded-full
-                  border border-gray-100
-                  flex items-center justify-center
-                  hover:border-[#C9960C]
-                  hover:text-[#C9960C]
-                  hover:shadow-[0_0_15px_rgba(201,150,12,0.15)]
-                  transition-all duration-300
-                "
-              >
-                <svg
-                  className="w-3.5 h-3.5"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/>
-                  <circle cx="4" cy="4" r="2"/>
-                </svg>
-              </motion.a>
+             <motion.a
+  href="https://www.linkedin.com/company/mriindia/"
+  target="_blank"
+  rel="noopener noreferrer"
+  whileHover={{
+    scale: 1.12,
+    y: -2,
+  }}
+  whileTap={{ scale: 0.95 }}
+  transition={{ duration: 0.25 }}
+  className="
+    w-9 h-9 rounded-full
+    border border-gray-100
+    flex items-center justify-center
+    hover:border-[#C9960C]
+    hover:text-[#C9960C]
+    hover:shadow-[0_0_15px_rgba(201,150,12,0.15)]
+    transition-all duration-300
+  "
+>
+  <svg
+    className="w-3.5 h-3.5"
+    fill="currentColor"
+    viewBox="0 0 24 24"
+  >
+    <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/>
+    <circle cx="4" cy="4" r="2"/>
+  </svg>
+</motion.a>
 
               {/* Twitter/X */}
               <motion.a
