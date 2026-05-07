@@ -133,7 +133,7 @@ export default function Navbar() {
             transition={{ duration: 0.25 }}
           >
             <Link
-              to="/membership"
+              to="/login"
               className="
                 flex rounded-md items-center gap-2
                 bg-[#B8860B]
@@ -152,7 +152,7 @@ export default function Navbar() {
                 <path d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" />
               </svg>
 
-              MEMBER LOGIN
+               LOGIN
             </Link>
           </motion.div>
         </motion.div>
@@ -275,7 +275,7 @@ export default function Navbar() {
               }}
             >
               <Link
-                to="/membership"
+                to="/login"
                 onClick={() => setMenuOpen(false)}
                 className="
                   bg-[#B8860B]
