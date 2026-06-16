@@ -2,26 +2,24 @@ import {
   LayoutDashboard,
   BookOpen,
   CalendarDays,
-  Megaphone,
-  Image,
-  HelpCircle,
+
   BadgeCheck,
   Users,
   FileText,
   File,
   Menu,
-  Settings,
+  // Settings,
   ShieldCheck,
   ChevronDown,
 } from "lucide-react";
 
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 import logo from "../../assets/edited_logo.png";
 
 function Sidebar() {
   return (
-    <div className="h-screen w-[230px] bg-[#050505] text-white border-r border-[#151515] flex flex-col justify-between relative overflow-hidden">
+    <div className="h-screen w-[260px] bg-[#050505] text-white border-r border-[#151515] flex flex-col justify-between relative overflow-hidden">
       {/* BACKGROUND EFFECT */}
       <div className="absolute inset-0 opacity-[0.03] bg-[radial-gradient(#C9960C_1px,transparent_1px)] bg-[length:20px_20px]" />
 
@@ -29,11 +27,13 @@ function Sidebar() {
       <div className="relative z-10 flex flex-col h-full">
         {/* LOGO */}
         <div className="px-4 pt-4 pb-2 border-b border-[#161616] shrink-0">
-          <img
-            src={logo}
-            alt="logo"
-            className="w-[180px] object-contain"
-          />
+          <Link to="/">
+            <img
+              src={logo}
+              alt="logo"
+              className="w-[180px] object-contain"
+            />
+          </Link>
         </div>
 
         {/* MENU */}
@@ -66,23 +66,7 @@ function Sidebar() {
                   to="/dashboard/events"
                 />
 
-                <SidebarItem
-                  icon={<Megaphone size={17} />}
-                  text="News & Announcements"
-                  to="/dashboard/news"
-                />
-
-                <SidebarItem
-                  icon={<Image size={17} />}
-                  text="Banners"
-                  to="/dashboard/banners"
-                />
-
-                <SidebarItem
-                  icon={<HelpCircle size={17} />}
-                  text="FAQs"
-                  to="/faqs"
-                />
+               
               </div>
             </div>
 
@@ -132,7 +116,7 @@ function Sidebar() {
                   to="/menus"
                 />
 
-                <SidebarItem
+                {/* <SidebarItem
                   icon={<Settings size={17} />}
                   text="Settings"
                   to="/settings"
@@ -148,7 +132,7 @@ function Sidebar() {
                   icon={<ShieldCheck size={17} />}
                   text="Audit Logs"
                   to="/audit-logs"
-                />
+                /> */}
               </div>
             </div>
           </div>
@@ -158,17 +142,17 @@ function Sidebar() {
             <div className="h-[68px] rounded-2xl border border-[#1d1d1d] bg-[#0d0d0d] px-4 flex items-center justify-between shadow-lg">
               <div className="flex items-center gap-3">
 
-                <div className="h-11 w-11 rounded-full bg-gradient-to-br from-[#4b3308] to-[#1d1405] border border-[#5b3d09] flex items-center justify-center text-[#d4a323] shadow-md">
-                  <ShieldCheck size={18} />
+                <div className="h-9 w-9 rounded-full bg-gradient-to-br from-[#4b3308] to-[#1d1405] border border-[#5b3d09] flex items-center justify-center text-[#d4a323] shadow-md">
+                  <ShieldCheck size={14} />
                 </div>
 
                 <div>
-                  <h3 className="text-[14px] font-semibold text-white leading-none">
-                    Super Admin
+                  <h3 className="text-[12px] font-semibold text-white leading-none">
+                     Admin
                   </h3>
 
-                  <p className="mt-1 text-[11px] text-[#8a8a8a]">
-                    superadmin@mriindia.org
+                  <p className="mt-1 text-[10px] text-[#8a8a8a]">
+                    admin@mriindia.org
                   </p>
                 </div>
               </div>

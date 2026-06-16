@@ -649,8 +649,8 @@ function Journal() {
         "Journal name is required";
     }
 
-    if (!formData.eissn.trim()) {
-      newErrors.eissn = "eISSN is required";
+    if (!formData. publisher.trim()) {
+      newErrors. publisher = "Publisher is required";
     }
 
     if (!imagePreview && !editingId) {
@@ -921,7 +921,6 @@ function Journal() {
                 <div className="grid grid-cols-2 gap-3 mt-3">
                   <InputField
                     label="eISSN"
-                    required
                     name="eissn"
                     value={formData.eissn}
                     onChange={handleChange}
@@ -965,12 +964,16 @@ function Journal() {
                 <div className="mt-3">
                   <InputField
                     label="Publisher"
+                     required
                     name="publisher"
                     value={formData.publisher}
                     onChange={handleChange}
                     placeholder="Enter publisher"
+                    error={errors.publisher}
                   />
                 </div>
+
+                
 
                 {/* DESCRIPTION */}
                 <div className="mt-3">

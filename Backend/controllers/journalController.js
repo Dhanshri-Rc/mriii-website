@@ -70,10 +70,10 @@ const createJournal = async (req, res) => {
     } = req.body;
 
     // Validate required fields
-    if (!title || !eissn) {
+    if (!title || !publisher) {
       return res.status(400).json({
         success: false,
-        message: "Title and eISSN are required.",
+        message: "Title and publisher are required.",
       });
     }
 
